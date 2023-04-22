@@ -34,7 +34,9 @@ import {
 } from "reactstrap";
 import { useEffect, useState } from 'react';
 import axios from "axios";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 const Login = () => {
+  const history = useHistory();
   const login_function = useGoogleLogin({
     onSuccess: tokenResponse => setUser(tokenResponse),
   });
@@ -53,6 +55,9 @@ const Login = () => {
           .then((res) => {
             setProfile(res.data);
             console.log(res.data);
+            // TODO: Send request to server with user data
+            localStorage.setItem("email", res.data["email"]);
+            history.push("/admin");
           })
           .catch((err) => console.log(err));
       }
