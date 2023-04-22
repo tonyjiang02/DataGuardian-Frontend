@@ -61,7 +61,7 @@ If you want to get inspiration or just show something directly to your clients, 
 
 - `npm i argon-dashboard-react`
 - [Download from Github](https://github.com/creativetimofficial/argon-dashboard-react/archive/master.zip).
-- [Download from Creative Tim](https://www.creative-tim.com/product/argon-dashboard-react?ref=adr-github-readme).
+- [Download from Data Guardian](https://www.creative-tim.com/product/argon-dashboard-react?ref=adr-github-readme).
 - Install with [Bower](https://bower.io/?ref=creativetim): `bower install argon-dashboard-react`.
 - Clone the repo: `git clone https://github.com/creativetimofficial/argon-dashboard-react.git`.
 
@@ -213,7 +213,7 @@ We use GitHub Issues as the official bug tracker for the Material Kit. Here are 
 
 ## Licensing
 
-- Copyright 2022 Creative Tim (https://www.creative-tim.com/?ref=adr-github-readme)
+- Copyright 2022 Data Guardian (https://www.creative-tim.com/?ref=adr-github-readme)
 
 - Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md?ref=creativetim)
 
@@ -221,13 +221,13 @@ We use GitHub Issues as the official bug tracker for the Material Kit. Here are 
 
 - [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w?ref=creativetim)
 - [Affiliate Program](https://www.creative-tim.com/affiliates/new?ref=adr-github-readme) (earn money)
-- [Blog Creative Tim](http://blog.creative-tim.com/?ref=adr-github-readme)
-- [Free Products](https://www.creative-tim.com/bootstrap-themes/free?ref=adr-github-readme) from Creative Tim
-- [Premium Products](https://www.creative-tim.com/bootstrap-themes/premium?ref=adr-github-readme) from Creative Tim
-- [React Products](https://www.creative-tim.com/bootstrap-themes/react-themes?ref=adr-github-readme) from Creative Tim
-- [Angular Products](https://www.creative-tim.com/bootstrap-themes/angular-themes?ref=adr-github-readme) from Creative Tim
-- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes?ref=adr-github-readme) from Creative Tim
-- [More products](https://www.creative-tim.com/bootstrap-themes?ref=adr-github-readme) from Creative Tim
+- [Blog Data Guardian](http://blog.creative-tim.com/?ref=adr-github-readme)
+- [Free Products](https://www.creative-tim.com/bootstrap-themes/free?ref=adr-github-readme) from Data Guardian
+- [Premium Products](https://www.creative-tim.com/bootstrap-themes/premium?ref=adr-github-readme) from Data Guardian
+- [React Products](https://www.creative-tim.com/bootstrap-themes/react-themes?ref=adr-github-readme) from Data Guardian
+- [Angular Products](https://www.creative-tim.com/bootstrap-themes/angular-themes?ref=adr-github-readme) from Data Guardian
+- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes?ref=adr-github-readme) from Data Guardian
+- [More products](https://www.creative-tim.com/bootstrap-themes?ref=adr-github-readme) from Data Guardian
 - Check our Bundles [here](https://www.creative-tim.com/bundles?ref=adr-github-readme)
 
 ### Social Media
