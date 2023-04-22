@@ -26,9 +26,10 @@ import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { useContext } from 'react';
+import { useContext, createContext } from 'react';
 import App from "app";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const AuthContext = createContext(null);
 root.render(
   App()
 );

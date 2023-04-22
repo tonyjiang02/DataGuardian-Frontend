@@ -10,22 +10,20 @@ import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useState, createContext } from 'react';
-const AuthContext = createContext(null);
-export default function App() {
-    const [profile, setProfile] = useState(null);
+const App = () => {
     return (
-        <AuthContext.Provider value={profile}>
-            <GoogleOAuthProvider clientId="175259980186-s2hdb3lghv70um12ujfds9uiscm4dgqk.apps.googleusercontent.com">
-                <BrowserRouter>
-                    <Switch>
-                        <AuthContext.Provider>
-                            <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-                            <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-                            <Redirect from="/" to="/admin/index" />
-                        </AuthContext.Provider>
-                    </Switch>
-                </BrowserRouter>
-            </GoogleOAuthProvider>
-        </AuthContext.Provider>
+        // <AuthContext.Provider value={profile}>
+        <GoogleOAuthProvider clientId="175259980186-s2hdb3lghv70um12ujfds9uiscm4dgqk.apps.googleusercontent.com">
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+                    <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+                    <Redirect from="/" to="/admin/index" />
+                </Switch>
+            </BrowserRouter>
+
+        </GoogleOAuthProvider>
+        // </AuthContext.Provider>
     );
-}
+};
+export default App;
