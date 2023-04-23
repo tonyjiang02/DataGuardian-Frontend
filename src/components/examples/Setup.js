@@ -53,35 +53,35 @@ const Register = () => {
   async function finishSetup() {
     console.log("submitted");
     if (isValidPhoneNumber(phoneNumber)) {
-        console.log(phoneNumber);
-        console.log(stateResident);
-        const result = await axios.post('http://127.0.0.1:5000/update_user', {
-            "user_email": localStorage.getItem("email"),
-            "fields_to_update": {
-                "Phone Number": phoneNumber,
-                "State": stateResident
-            }
-        });
-        console.log(result);
-        history.push("/admin");
+      console.log(phoneNumber);
+      console.log(stateResident);
+      const result = await axios.post('http://localhost:5001/update_user', {
+        "user_email": localStorage.getItem("email"),
+        "fields_to_update": {
+          "Phone Number": phoneNumber,
+          "State": stateResident
+        }
+      });
+      console.log(result);
+      history.push("/admin");
 
     }
-}
+  }
 
 
   return (
     <>
       <Col lg="6" md="8">
         <Card className="bg-secondary shadow border-0">
-          
+
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
               <small>Let's get you set up!</small>
             </div>
             <Form role="form">
-              <StateSelector setStateResident={setStateResident}/>
-              <PhoneInput setPhoneNumber={setPhoneNumber}/>
-              
+              <StateSelector setStateResident={setStateResident} />
+              <PhoneInput setPhoneNumber={setPhoneNumber} />
+
               <Row className="my-4">
                 <Col xs="12">
                   <div className="custom-control custom-control-alternative custom-checkbox">

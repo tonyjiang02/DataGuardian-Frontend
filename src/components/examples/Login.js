@@ -59,39 +59,42 @@ const Login = () => {
             // TODO: Send request to server with user data
             localStorage.setItem("email", res.data["email"]);
 
-            authFlow(res)
+            authFlow(res);
 
 
-    },
-  )}},[user]);
-  
+          },
+          );
+      }
+    }, [user]);
+
   const authFlow = async (res) => {
-    const result = await axios.post('http://127.0.0.1:5000/update_user', {
+    const result = await axios.post('http://localhost:5001/update_user', {
       "user_email": res.data["email"],
-        "fields_to_update": {
+      "fields_to_update": {
         "User": res.data["email"],
         "Profile Picture": res.data["picture"],
         "First Name": res.data["given_name"],
-        "Last Name": res.data["family_name"]}
-    })
-    const data = result.data
+        "Last Name": res.data["family_name"]
+      }
+    });
+    const data = result.data;
     axios({
       method: "get",
-      url: 'http://127.0.0.1:5000/get_user',
+      url: 'http://localhost:5001/get_user',
       params: {
         "user_email": res.data["email"]
       }
-    }).then((response)=> {
-      console.log(response.data)
-      if(response.data["user_profile"]["Phone Number"] == null) {
+    }).then((response) => {
+      console.log(response.data);
+      if (response.data["user_profile"]["Phone Number"] == null) {
         console.log("no user exists");
         history.push("/auth/setup");
       } else {
         console.log("user exists");
         history.push("/admin");
       }
-    })
-  }
+    });
+  };
   return (
     <>
       <Col lg="5" md="7">
