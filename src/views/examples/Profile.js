@@ -31,17 +31,31 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-import{ useState, useEffect } from 'react';
-
+import axios from "axios";
+import { useState, useEffect } from 'react';
 const Profile = () => {
   const [email, setEmail] = useState(null);
+  const [profile, setProfile] = useState(null);
   useEffect(() => {
     const e = localStorage.getItem("email");
     setEmail(e);
+    getUser(e);
   }, []);
+  const getUser = async (email) => {
+    console.log("Getting user " + email);
+    const res = await axios({
+      method: 'get',
+      url: 'http://localhost:5001/get_user',
+      params: {
+        "user_email": email
+      }
+    });
+    const json = await res.data;
+    setProfile(json);
+  };
   return (
     <div>
-      {email ? <>
+      {profile ? <>
         <UserHeader />
         {/* Page content */}
         <Container className="mt--7" fluid>

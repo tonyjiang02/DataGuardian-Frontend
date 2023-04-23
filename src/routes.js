@@ -68,8 +68,8 @@ var routes = [
     layout: "/auth"
   },
   // {
-  //   path: "/landing",
-  //   name: "Landing",
+  //   path: "/register",
+  //   name: "Register",
   //   icon: "ni ni-circle-08 text-pink",
   //   component: Register,
   //   layout: "/auth"

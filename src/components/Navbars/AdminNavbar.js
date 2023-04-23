@@ -33,8 +33,28 @@ import {
   Container,
   Media
 } from "reactstrap";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 const AdminNavbar = (props) => {
+  const [email, setEmail] = useState(null);
+  const [profile, setProfile] = useState(null);
+  useEffect(() => {
+    const e = localStorage.getItem("email");
+    setEmail(e);
+    getUser(e);
+  }, []);
+  const getUser = async (email) => {
+    console.log("Getting user " + email);
+    const res = await axios({
+      method: 'get',
+      url: 'http://localhost:5001/get_user',
+      params: {
+        "user_email": email
+      }
+    });
+    const json = await res.data;
+    setProfile(json);
+  };
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -62,14 +82,15 @@ const AdminNavbar = (props) => {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
+
                     <img
                       alt="..."
-                      src={require("../../assets/img/theme/team-4-800x800.jpg")}
+                      src={profile ? profile["user_profile"]["Profile Picture"] : "https://picsum.photos/200"}
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Your Name
+                      {profile ? profile["user_profile"]["First Name"] + " " + profile["user_profile"]["Last Name"] : "Your Name"}
                     </span>
                   </Media>
                 </Media>

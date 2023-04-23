@@ -26,18 +26,10 @@ import {
   Button,
   Card,
   CardHeader,
-  CardBody,
-  NavItem,
-  NavLink,
-  Nav,
-  Progress,
-  FormGroup,
-  Input,
-  Label,
   Table,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 // core components
@@ -47,31 +39,61 @@ import {
   chartExample1,
   chartExample2
 } from "variables/charts.js";
-
+import { CircularProgress } from 'react-loading-indicators';
 import Header from "components/Headers/Header.js";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import axios from "axios";
 const Index = (props) => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
   const [email, setEmail] = useState(null);
-  // const [websites, setWebsites] = useState([]);
-
-  const websites = ["YouTube", "Google", "Instagram"];
+  const [profile, setProfile] = useState(null);
+  const [emailNumber, setEmailNumber] = useState(1);
+  var sendList = [];
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
   useEffect(() => {
     const e = localStorage.getItem("email");
     setEmail(e);
+    getUser(e);
   }, []);
+  const addToList = useCallback((company) => {
+    const index = sendList.indexOf(company);
+    if (index >= 0) {
+      sendList.splice(index);
+    } else {
+      sendList.push(company);
+    }
+  }, [sendList]);
+  const getUser = async (email) => {
+    console.log("Getting user " + email);
+    const res = await axios({
+      method: 'get',
+      url: 'http://localhost:5001/get_user',
+      params: {
+        "user_email": email
+      }
+    });
+    const json = await res.data;
+    setProfile(json);
+  };
   const toggleNavs = (e, index) => {
     e.preventDefault();
     setActiveNav(index);
     setChartExample1Data("data" + index);
   };
+  const sendEmails = async () => {
+    console.log(sendList);
+    const res = await axios.post("http://localhost:5001/update_websites", {
+      "user_email": email,
+      "history": sendList
+    });
+    console.log(res.data);
+  };
   return (
     <div>
-      {email ?
+      {profile ?
         (<>
           <Header />
           {/* Page content */}
@@ -88,10 +110,13 @@ const Index = (props) => {
                         <Button
                           color="primary"
                           href="#pablo"
-                          onClick={(e) => e.preventDefault()}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            sendEmails();
+                          }}
                           size="sm"
                         >
-                          See all
+                          Send Emails
                         </Button>
                       </div>
                     </Row>
@@ -101,52 +126,59 @@ const Index = (props) => {
                       <tr>
                         <th scope="col">Page Name</th>
                         <th scope="col"># of Visits</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Risk</th>
-                        <th scope="col">Date Last Deleted</th>
-                        <th scope="col">Recurring Delete</th>
-                        <th scope="col">Delete Now</th>
+                        <th scope="col">Send Email</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {websites.map((website) =>
-                      <tr>
-                        <th scope="row">{website}</th>
-                        <td>4,569</td>
-                        <td>340</td>
-                        <td>
-                          <i className="fas fa-arrow-up text-success mr-3" /> 46,53%
-                        </td>
-                        <td>
-                        <FormGroup check>
-                          <Input
-                            id="checkbox2"
-                            type="checkbox"
-                          />
-                          {' '}
-                          <Label check>
-                          </Label>
-                        </FormGroup>
-                        </td>
-                        <td>
-                          <Button
-                            color="primary"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                            size="sm"
-                          >
-                            Delete Data
-                          </Button>
-                        </td>
-                      </tr>)}
+                      {profile["user_data"].sort((a, b) => b["Times Visited"] - a["Times Visited"]).map((item) => (
+                        <ListComponent key={item["Company"]} item={item} addToList={addToList}></ListComponent>
+                      ))}
                     </tbody>
                   </Table>
                 </Card>
               </Col>
             </Row>
           </Container>
-        </>) : <div><h1>Not Authenticated</h1></div>}
+        </>) : <div style={{ "paddingTop": "300px", "paddingLeft": "200px" }}><CircularProgress /></div>}
     </div>
   );
 };
+function ListComponent({ item, addToList }) {
+  // TODO, make this colored
+  function getRisk() {
+    if (item["Times Visited"] > 50) {
+      return "HIGH";
+    } else if (item["Times Visited"] > 25) {
+      return "MEDIUM";
+    } else {
+      return "LOW";
+    }
+  }
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+    addToList(item["Company"]);
+  };
+  return (
+    <tr>
+      <td>{item["Company"]}</td>
+      <td>{item["Times Visited"]}</td>
+      <td>
+        {item["Status"]}
+      </td>
+      <td>
+        {getRisk()}
+      </td>
+      <td style={{ "display": "flex", "justifyContent": "center", "alignItems": "center", "transform": "scale(1.2)" }}>
+        {item["Status"] === "Unguarded" ? <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} value="" id={item["Company"] + "1"} />
+          : <input type="checkbox" id={item["Company"] + "1"} checked disabled />}
+
+      </td>
+    </tr>
+  );
+}
 
 export default Index;
