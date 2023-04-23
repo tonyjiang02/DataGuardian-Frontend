@@ -42,6 +42,7 @@ const Login = () => {
   });
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
+
   useEffect(
     () => {
       if (user) {
@@ -58,15 +59,39 @@ const Login = () => {
             // TODO: Send request to server with user data
             localStorage.setItem("email", res.data["email"]);
 
-            // TODO: If first time logging in, route to setup. Otherwise route to admin
-            // if (first) history.push("/auth/setup")
-            history.push("/admin");
-          })
-          .catch((err) => console.log(err));
-      }
+            authFlow(res)
+
+
     },
-    [user]
-  );
+  )}},[user]);
+  
+  const authFlow = async (res) => {
+    const result = await axios.post('http://127.0.0.1:5000/update_user', {
+      "user_email": res.data["email"],
+        "fields_to_update": {
+        "User": res.data["email"],
+        "Profile Picture": res.data["picture"],
+        "First Name": res.data["given_name"],
+        "Last Name": res.data["family_name"]}
+    })
+    const data = result.data
+    axios({
+      method: "get",
+      url: 'http://127.0.0.1:5000/get_user',
+      params: {
+        "user_email": res.data["email"]
+      }
+    }).then((response)=> {
+      console.log(response.data)
+      if(response.data["user_profile"]["Phone Number"] == null) {
+        console.log("no user exists");
+        history.push("/auth/setup");
+      } else {
+        console.log("user exists");
+        history.push("/admin");
+      }
+    })
+  }
   return (
     <>
       <Col lg="5" md="7">

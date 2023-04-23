@@ -34,24 +34,40 @@ import {
   Col
 } from "reactstrap";
 
+import axios from "axios";
+
 import StateSelector from "components/StateSelector/StateSelector.js";
 import PhoneInput from "components/PhoneInput/PhoneInput.js";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [stateResident, setStateResident] = useState("");
 
+  const history = useHistory();
+
   function isValidPhoneNumber(number) {
     return /^\d{10}$/.test(number);
   }
 
-  function finishSetup() {
+  async function finishSetup() {
     console.log("submitted");
     if (isValidPhoneNumber(phoneNumber)) {
-      console.log(phoneNumber);
-      console.log(stateResident);
+        console.log(phoneNumber);
+        console.log(stateResident);
+        const result = await axios.post('http://127.0.0.1:5000/update_user', {
+            "user_email": localStorage.getItem("email"),
+            "fields_to_update": {
+                "Phone Number": phoneNumber,
+                "State": stateResident
+            }
+        });
+        console.log(result);
+        history.push("/admin");
+
     }
-  }
+}
+
 
   return (
     <>
