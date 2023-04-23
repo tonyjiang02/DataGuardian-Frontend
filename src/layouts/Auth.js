@@ -67,9 +67,9 @@ const Auth = (props) => {
             <div className="header-body text-center mb-7">
               <Row className="justify-content-center">
                 <Col lg="5" md="6">
-                  <h1 className="text-white">Welcome!</h1>
+                  <h1 className="text-white">Data Guardian</h1>
                   <p className="text-lead text-light">
-                    Secure your personal internet privacy today for free.
+                    A legal agent to exercise your data privacy rights.
                   </p>
                 </Col>
               </Row>

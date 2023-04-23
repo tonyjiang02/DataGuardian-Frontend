@@ -31,6 +31,9 @@ import {
   NavLink,
   Nav,
   Progress,
+  FormGroup,
+  Input,
+  Label,
   Table,
   Container,
   Row,
@@ -51,6 +54,9 @@ const Index = (props) => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
   const [email, setEmail] = useState(null);
+  // const [websites, setWebsites] = useState([]);
+
+  const websites = ["YouTube", "Google", "Instagram"];
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
@@ -71,7 +77,7 @@ const Index = (props) => {
           {/* Page content */}
           <Container className="mt--7" fluid>
             <Row className="mt-5">
-              <Col className="mb-5 mb-xl-0" xl="8">
+              <Col className="mb-5 mb-xl-0" xl="12">
                 <Card className="shadow">
                   <CardHeader className="border-0">
                     <Row className="align-items-center">
@@ -95,53 +101,43 @@ const Index = (props) => {
                       <tr>
                         <th scope="col">Page Name</th>
                         <th scope="col"># of Visits</th>
-                        <th scope="col">Severity</th>
+                        <th scope="col">Risk</th>
+                        <th scope="col">Date Last Deleted</th>
+                        <th scope="col">Recurring Delete</th>
+                        <th scope="col">Delete Now</th>
                       </tr>
                     </thead>
                     <tbody>
+                      {websites.map((website) =>
                       <tr>
-                        <th scope="row">/argon/</th>
+                        <th scope="row">{website}</th>
                         <td>4,569</td>
                         <td>340</td>
                         <td>
                           <i className="fas fa-arrow-up text-success mr-3" /> 46,53%
                         </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">/argon/index.html</th>
-                        <td>3,985</td>
-                        <td>319</td>
                         <td>
-                          <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                          46,53%
+                        <FormGroup check>
+                          <Input
+                            id="checkbox2"
+                            type="checkbox"
+                          />
+                          {' '}
+                          <Label check>
+                          </Label>
+                        </FormGroup>
                         </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">/argon/charts.html</th>
-                        <td>3,513</td>
-                        <td>294</td>
                         <td>
-                          <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                          36,49%
+                          <Button
+                            color="primary"
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}
+                            size="sm"
+                          >
+                            Delete Data
+                          </Button>
                         </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">/argon/tables.html</th>
-                        <td>2,050</td>
-                        <td>147</td>
-                        <td>
-                          <i className="fas fa-arrow-up text-success mr-3" /> 50,87%
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">/argon/profile.html</th>
-                        <td>1,795</td>
-                        <td>190</td>
-                        <td>
-                          <i className="fas fa-arrow-down text-danger mr-3" />{" "}
-                          46,53%
-                        </td>
-                      </tr>
+                      </tr>)}
                     </tbody>
                   </Table>
                 </Card>
