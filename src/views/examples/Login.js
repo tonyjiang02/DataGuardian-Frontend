@@ -57,6 +57,9 @@ const Login = () => {
             console.log(res.data);
             // TODO: Send request to server with user data
             localStorage.setItem("email", res.data["email"]);
+
+            // TODO: If first time logging in, route to setup. Otherwise route to admin
+            // if (first) history.push("/auth/setup")
             history.push("/admin");
           })
           .catch((err) => console.log(err));

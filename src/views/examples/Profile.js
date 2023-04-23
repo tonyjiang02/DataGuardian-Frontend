@@ -31,6 +31,7 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+import{ useState, useEffect } from 'react';
 
 const Profile = () => {
   const [email, setEmail] = useState(null);
