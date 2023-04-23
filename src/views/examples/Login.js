@@ -81,7 +81,7 @@ const Login = () => {
     }, [user]);
 
   const authFlow = async (res) => {
-    const result = await axios.post('http://127.0.0.1:5000/update_user', {
+    const result = await axios.post('http://localhost:5001/update_user', {
       "user_email": res.data["email"],
       "fields_to_update": {
         "User": res.data["email"],
@@ -93,7 +93,7 @@ const Login = () => {
     const data = result.data;
     axios({
       method: "get",
-      url: 'http://127.0.0.1:5000/get_user',
+      url: 'http://localhost:5001/get_user',
       params: {
         "user_email": res.data["email"]
       }
