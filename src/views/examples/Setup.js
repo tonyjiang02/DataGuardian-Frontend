@@ -41,10 +41,16 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [stateResident, setStateResident] = useState("");
 
+  function isValidPhoneNumber(number) {
+    return /^\d{10}$/.test(number);
+  }
+
   function finishSetup() {
     console.log("submitted");
-    console.log(phoneNumber);
-    console.log(stateResident);
+    if (isValidPhoneNumber(phoneNumber)) {
+      console.log(phoneNumber);
+      console.log(stateResident);
+    }
   }
 
   return (
