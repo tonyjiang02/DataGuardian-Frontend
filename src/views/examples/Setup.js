@@ -50,6 +50,10 @@ const Register = () => {
     return /^\d{10}$/.test(number);
   }
 
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noreferrer");
+  };
+
   async function finishSetup() {
     console.log("submitted");
     if (isValidPhoneNumber(phoneNumber)) {
@@ -96,7 +100,7 @@ const Register = () => {
                     >
                       <span className="text-muted">
                         I agree with the{" "}
-                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                        <a href="#pablo" onClick={() => openInNewTab("https://github.com/AdvitDeepak/DataGuardian/blob/main/docs/term.txt")}>
                           Privacy Policy
                         </a>
                       </span>
